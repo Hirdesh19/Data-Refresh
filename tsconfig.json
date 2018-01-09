@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "sourceRoot": "src",
+    "outDir": "dist",
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "declaration": false,
+    "listFiles": false,
+    "lib": [
+      "es5",
+      "es6",
+      "es2015",
+      "es2015.promise",
+      "dom"
+    ]
+  },
+  "include": [
+    "src/**/*",
+    "test/**/*"
+  ],
+  "exclude": [
+    ".vscode",
+    ".serverless",
+    ".git",
+    "node_modules/**/*",
+    "dist"
+  ],
+  "compileOnSave": true,
+  "buildOnSave": false,
+  "atom": {
+    "rewriteTsconfig": false
+  }
+}

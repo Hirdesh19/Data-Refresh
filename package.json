@@ -1,0 +1,26 @@
+{
+  "name": "lf-rti-file-copier",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/handler.js",
+  "scripts": {
+	  "test": "serverless invoke local -f dataRefresh -s dev -d "
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/aws-lambda": "0.0.21",
+    "@types/node": "^8.5.1",
+    "serverless-plugin-typescript": "^1.1.3"
+  },
+  "dependencies": {
+    "async": "^2.6.0",
+    "aws-sdk": "^2.169.0",
+    "aws-sdk-proxy": "^1.0.0",
+    "fs": "0.0.1-security",
+    "ftp": "^0.3.10",
+    "json2csv": "^3.11.5",
+    "proxy-agent": "^2.1.0",
+    "tunnel-agent": "^0.6.0"
+  }
+}
