@@ -1,5 +1,5 @@
 {
-  "name": "lf-rti-file-copier",
+  "name": "data-refresh",
   "version": "1.0.0",
   "description": "",
   "main": "src/handler.js",

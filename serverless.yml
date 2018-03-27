@@ -1,88 +1,8 @@
-service: ${self:custom.pOwner}-${self:custom.pEnvironment}-lf-rti-ftp-s3-copier
-
-custom:
-  #-----------------------------------------------------------------------------
-  # Mapping with respect to environment specific URL and serverless stage.
-  #-----------------------------------------------------------------------------
-  # AWS account Id Map that would be used as a map for forming urns.
-  dev-account-id: 030361293591
-  e2e-account-id: 030361293591
-  test-account-id: 030361293591
-  stage-account-id: 974258366369
-  qa-account-id: 974258366369
-  prod-account-id: 974258366369
-  local-account-id: 00000000000
-
-   # Region Map for deployment of lambda functions.
-  dev-region: us-east-1
-  e2e-region: us-east-1
-  test-region: us-east-1
-  qa-region: us-west-2
-  stage-region: us-east-1
-  prod-region: us-east-1
-  local-region:  us-east-1
-
-  # Log Retention in Cloudwatch.
-  dev-log-retention: 5
-  test-log-retention: 5
-  e2e-log-retention: 5
-  qa-log-retention: 5
-  stage-log-retention: 5
-  prod-log-retention: 30
-  local-log-retention: 5
-
-  # Log Level for debug logging.
-  dev-log-level: trace
-  test-log-level: trace
-  e2e-log-level: trace
-  qa-log-level: info
-  stage-log-level: info
-  prod-log-level: info
-  local-log-level: trace
-  
-  #-----------------------------------------------------------------------------
-  # Parameter block to define the tagging, naming and billing strategies
-  # for this template.
-  #-----------------------------------------------------------------------------
-
-  #  Owner or service name. Example of owner is rti which standards for
-  #  real time inventory.  Ensure that the owner name is kept within 6 letters as
-  #  it will be used in tagging and naming of various resources.
-  pOwner: rti
-
-  #  Name of the vertical to which this app belongs to.  Example of vertical
-  #  would be dfa (Dealer Field and Affiliates), cto (Consumer Portals) etc. Used
-  #  to identify who is responsible for the resource.
-  pVertical: dfa
-
-  #  Name of the environment based on the TMNA guidelines.  currently
-  #  only 4 values are allowed here i.e. dev -> Development, test-> Test, qa - QA
-  #  prd - Production, and dr - Disaster Recovery. This is used to distinguish between development, test,
-  #  production, and disaster recovery infrastructure.  Valid values are
-  # [dev, test, qa, prod, dr, local]   Use local for local testing.
-  pEnvironment: ${opt:stage, self:provider.stage}
-
-  # Env mapped to RTIC
-  # pConsumerEnvironment: ${self:custom.${self:custom.pEnvironment}ui}
-
-  # Will contain the TMNA ProjectID and DeptID or anything else through
-  # which the instances will be billed.
-  pCostCenter: 2020022:222222
-
-  # AWS account Id for this stage.
-  pAccountId: ${self:custom.${self:custom.pEnvironment}-account-id}
-
-  # AWS region under which this Lambda will be deployed.
-  pRegion: ${self:custom.${self:custom.pEnvironment}-region}
-
-  # Log Level - can be any of 'trace', 'debug', 'info', 'warn', 'error'
-  pLogLevel: ${self:custom.${self:custom.pEnvironment}-log-level}
-
-  build:
-    method: bundle
-    sourceMaps: true
-    include:
-      - 'dist/**'
+build:
+  method: bundle
+  sourceMaps: true
+  include:
+    - 'dist/**'
 
 provider:
   name: aws
@@ -93,31 +13,13 @@ provider:
          - "s3:PutObject"         
          - "s3:DeleteObject"
          - "s3:*"  
-       Resource: 
-         - "arn:aws:s3:::rti-dev-ftp-s3-src/*"
-         - "arn:aws:s3:::rti-dev-ftp-s3-src"
 
   runtime: nodejs6.10
   stage: dev
-  region: ${self:custom.pRegion}
   memorySize: 256
   timeout: 60
-  deploymentBucket: ${self:custom.pOwner}-${self:custom.pEnvironment}-serverless-${self:custom.pRegion}-deploys
+  deploymentBucket: "bucketName"
   
-  environment:
-    OWNER: ${self:custom.pOwner}
-    ENVIRONMENT: ${self:custom.pEnvironment}
-    REGION: ${self:custom.pRegion}
-    LOG_LEVEL: ${self:custom.pLogLevel}
-    
-  # Tagging for this stack.
-  stackTags:
-    Name: ${self:service}
-    Owner: ${self:custom.pOwner}
-    Vertical: ${self:custom.pVertical}
-    Env: ${self:custom.pEnvironment}
-    CostCenter: ${self:custom.pCostCenter}
-
 package:
   include:
     - node_modules/**.*
